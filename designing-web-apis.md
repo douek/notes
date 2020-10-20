@@ -1,13 +1,13 @@
 # Designing Web APIs Book notes
 
-### Chapter 1 - Why Building an API
+## Chapter 1 - Why Building an API
 * What is the buissnes case?
 * Who are the users?
   * Internal developer
   * External developer
   * APIs as a product
 
-### Chapter 2 - API Paradigms
+## Chapter 2 - API Paradigms
 
 ### Request-Response APIs
 Typically expose as an interface through HTTP-base web serve. APIs define a set of endpoints and clients make http requests for data to those endpoints.
@@ -110,7 +110,7 @@ Streaming communication over TCP, client- server can communicate simultaneously 
   * Bot HTTP
 * Use for two-way real-time browser and server communication
 
-#### HTTP Streaming
+#### HTTP Streamingname,
 The server will continue to push noew data in a persist live connection opened by the client.  
 There are 2 option to transmit data from server over persisted connection :  
 1. Set the `Transfer-Encodeing` header to `chunked` - let the client know that the data will arrived in chunkes.
@@ -125,3 +125,21 @@ There are 2 option to transmit data from server over persisted connection :
   * Requier re-connecting to recive diffrent events
 * Use for one-way communication over simple HTTP
 
+## Chapter 3 API Security
+There are many things used to enforce security on wev application, including: validatios, SSL, audit logs, CSRF, XSS.
+When developing an API used by external developers it is important to add authentication and authorization to the API.
+
+### OAuth
+OAuth 2.0 is the industry standard protocol for authorization. It allow the user to grant access to application whitout sharing passwords.
+It allows using an external identity (google, facebook - API providers) by allowing some access to the resources (name, friends list).  
+
+#### Token generation
+The aplication can use a token to call the API in behalf of the user. Inorder to get this token there is flow involving the app, API provider and the user.
+
+The application redirect to user to API provider to authorization (like connect with facebook that opens a facebook UI), the application sent the client ID and the requiered permissions (scope).  
+
+The API provider then look for the user's authorization and ask for access, the user can denie (`access_denied` error), if the users approve the request, they redirect back to the application with authorization code.  
+
+The application exchange authorization code (+ client ID and client secret) with access token that used in the API call (can only used once, redirect is needed whenever new code is requiered).
+
+#### Scopes
